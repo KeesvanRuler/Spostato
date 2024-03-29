@@ -12,4 +12,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SpostatoBL\SpostatoBL.csproj" />
+    <ProjectReference Include="..\SpostatoDAL\SpostatoDAL.csproj" />
+  </ItemGroup>
+
 </Project>
