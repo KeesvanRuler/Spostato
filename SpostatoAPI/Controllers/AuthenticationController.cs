@@ -12,6 +12,13 @@ namespace SpostatoAPI.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
+
+        public AuthenticationController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+        
         [HttpPost("login")]
         public IActionResult Login([FromBody] UserLogin request)
         {
@@ -23,7 +30,9 @@ namespace SpostatoAPI.Controllers
 
         private string GenerateJwtToken(string username)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecretKeyHere"));
+            var secretKey = _configuration.GetValue<string>("JwtSettings:SecretKey");
+            var key = Encoding.UTF8.GetBytes(secretKey!);
+            var securityKey = new SymmetricSecurityKey(key);
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var tokenDescriptor = new SecurityTokenDescriptor
