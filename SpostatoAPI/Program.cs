@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using SpostatoBL.Classes;
+using SpostatoBL.Classes.Auth;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
