@@ -1,0 +1,40 @@
+﻿@page "/CreateGangster"
+@inject NavigationManager NavigationManager;
+@inject IGangsterService GangsterService;
+
+<h3>Zo te zien heb je nog geen actieve Gangster, maak er een aan:</h3>
+<EditForm Model="Gangster">
+    <label>Naam:</label>
+    <InputText @bind-Value="Name" class="form-control"></InputText>
+</EditForm>
+
+<button class="btn btn-primary" @onclick="@HandleSend">Verstuur</button>
+
+@code {
+    [CascadingParameter] public IModalService Modal { get; set; }
+    public Gangster Gangster { get; set; } = new Gangster();
+    string Name = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Gangster? Gangster = await GangsterService.Get();
+        if (Gangster != null)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+    }
+    
+    public async Task HandleSend()
+    {
+        bool result = await GangsterService.Create(Name);
+        if (result)
+            NavigationManager.NavigateTo("/");
+        else 
+        {
+            var parameters = new ModalParameters();
+            parameters.Add(nameof(_ErrorModal.ErrorMessage), "De naam is al in gebruik.");
+            var modal = Modal.Show<_ErrorModal>("Error", parameters);
+        }
+    }
+}

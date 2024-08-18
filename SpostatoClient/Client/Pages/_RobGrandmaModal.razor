@@ -1,0 +1,28 @@
+﻿<div>
+
+    @if (Result!.SuccesFailOrJail == "Succes")
+    {
+        <p>Alles verliep volgens plan, je hebt @Result.Loot euro uit de handtas gehaald!</p>
+    }
+    else if (Result.SuccesFailOrJail == "Fail")
+    {
+        <p>Het omaatje sloeg je volluit in je gezicht met haar tasje, je bent weggerend.</p>
+    }
+    else if (Result.SuccesFailOrJail == "Jail")
+    {
+        <p>Er reed precies op het moment van de overval een politie auto voorbij, je bent opgepakt door de politie!</p>
+    }
+
+    <button @onclick="Close">Close</button>
+</div>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Parameter] public BasicCrimeResultDTO? Result { get; set; }
+
+    private async Task Close()
+    {
+        await BlazoredModal.CloseAsync();
+    }
+}

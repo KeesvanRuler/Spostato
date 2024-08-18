@@ -1,0 +1,40 @@
+﻿@inject IBasicCrimeService BasicCrimeService
+
+<button class="btn btn-primary" @onclick=HandleShootingRange>Oefen met schieten op de schietbaan.</button>
+<button class="btn btn-primary" @onclick=HandleRobbingGrandma>Beroof een bejaarde.</button>
+<button class="btn btn-primary" @onclick=HandleRobbingJuwelryStore>Overval een juwelier.</button>
+
+@code {
+
+    [CascadingParameter] public IModalService Modal { get; set; }
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    public async Task HandleShootingRange()
+    {
+        BasicCrimeResultDTO response = await BasicCrimeService.ShootingRange();
+        var parameters = new ModalParameters();
+        parameters.Add(nameof(_ShootingRangeModal.Result), response);
+        var modal = Modal.Show<_ShootingRangeModal>("Schietbaan", parameters);
+        await modal.Result;
+        await OnClose.InvokeAsync();
+    }
+    public async Task HandleRobbingGrandma()
+    {
+        BasicCrimeResultDTO response = await BasicCrimeService.RobGrandma();
+        var parameters = new ModalParameters();
+        parameters.Add(nameof(_RobGrandmaModal.Result), response);
+        var modal = Modal.Show<_RobGrandmaModal>("Beroving", parameters);
+        await modal.Result;
+        await OnClose.InvokeAsync();
+    }
+    public async Task HandleRobbingJuwelryStore()
+    {
+        BasicCrimeResultDTO response = await BasicCrimeService.RobJuwelryStore();
+        var parameters = new ModalParameters();
+        parameters.Add(nameof(_RobJuwelryStoreModal.Result), response);
+        var modal = Modal.Show<_RobJuwelryStoreModal>("Overval", parameters);
+        await modal.Result;
+        await OnClose.InvokeAsync();
+    }
+}

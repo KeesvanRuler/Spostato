@@ -1,0 +1,27 @@
+﻿<div>
+
+    @if (Result!.SuccesFailOrJail == "Succes")
+    {
+        <p>Je schoot in de roos, je schietervaring is verbeterd!</p>
+    }
+    else if (Result.SuccesFailOrJail == "Fail")
+    {
+        <p>Je schoot mis, volgende keer beter!</p>
+    }
+    else if (Result.SuccesFailOrJail == "Jail")
+    {
+        <p>Je schoot per ongeluk in de voet van de instructeur, de politie heeft je meegenomen.</p>
+    }
+
+    <button @onclick="Close">Sluit</button>
+</div>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Parameter] public BasicCrimeResultDTO? Result { get; set; }
+
+    private async Task Close() { 
+        await BlazoredModal.CloseAsync();
+    }
+}
