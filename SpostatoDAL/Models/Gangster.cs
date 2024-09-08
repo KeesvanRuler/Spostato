@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SpostatoBL.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,9 +11,6 @@ using System.Threading.Tasks;
 
 namespace SpostatoDAL.Models
 {
-    public enum Rank { Newbie, Goon, Pro, Boss, Godfather }
-    public enum Weapon { Stiletto, Glock, Uzi, Kalashnikov }
-    public enum Transport { Vespa, Golf, Astra, Bugatti, Helicopter }
 
     [Index(nameof(Name), IsUnique = true)]
     public class Gangster
@@ -38,7 +36,7 @@ namespace SpostatoDAL.Models
         public ICollection<PersonalMessage>? ReceivedMessages { get; set; }
         public ICollection<PersonalMessage>? SentMessages { get; set; }
         [Display(Name = "Persoonlijk vervoer")]
-        public Transport? MeansOfTransportation { get; set; }
+        public bool HasPrivateJet { get; set; } = false;
         [Display(Name = "Is in leven")]
         public bool IsAlive { get; set; } = true;
         public int? PrisonId { get; set; }
@@ -65,9 +63,9 @@ namespace SpostatoDAL.Models
         [Range(0.0, 100.0), Display(Name = "Uitbreek ervaring")]
         public double BreakoutSkill { get; set; } = 0.0;
         [Display(Name = "Wapen")]
-        public Weapon Weapon { get; set; } = Weapon.Stiletto;
+        public WeaponEnum? Weapon { get; set; } = null;
         [Display(Name = "Rang")]
-        public Rank Rank { get; set; } = Rank.Newbie;
+        public RankEnum Rank { get; set; } = RankEnum.Straatschoffie;
         public DateTime NextBasicCrimeAt { get; set; } = DateTime.Now;
     }
 }

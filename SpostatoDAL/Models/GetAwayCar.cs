@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpostatoBL.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,7 +17,7 @@ namespace SpostatoDAL.Models
         [Required, ForeignKey("OwnerId")]
         public Gangster Owner { get; set; }
         [Required]
-        public string Name { get; set; }
+        public CarEnum Name { get; set; }
         [Range(1, 350), Required]
         public int Speed { get; set; }
         [Range(1, 100), Required]

@@ -1,0 +1,17 @@
+﻿@page
+@model WebApp.Pages.LogoutModel
+@{
+    ViewData["Title"] = "Uitloggen";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <p>Bent u zeker dat u wilt uitloggen?</p>
+    <button type="submit" class="btn btn-primary">Uitloggen</button>
+</form>
+
+@if (User.Identity?.IsAuthenticated == false)
+{
+    <p>U bent succesvol uitgelogd.</p>
+}

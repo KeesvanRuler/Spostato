@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpostatoClient.Shared", "Sp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpostatoAPI", "SpostatoAPI\SpostatoAPI.csproj", "{66F43C2F-9E06-4C3D-9141-1906265DD15C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpostatoDAL", "SpostatoDAL\SpostatoDAL.csproj", "{18F9939D-5331-41A3-8681-4A577609024F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpostatoDAL", "SpostatoDAL\SpostatoDAL.csproj", "{18F9939D-5331-41A3-8681-4A577609024F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpostatoBL", "SpostatoBL\SpostatoBL.csproj", "{7FE3007E-A3C4-4A3E-A3B7-F5DF37A94F14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpostatoBL", "SpostatoBL\SpostatoBL.csproj", "{7FE3007E-A3C4-4A3E-A3B7-F5DF37A94F14}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{C549B51B-112C-4D77-BF31-9B9C34324C34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{7FE3007E-A3C4-4A3E-A3B7-F5DF37A94F14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FE3007E-A3C4-4A3E-A3B7-F5DF37A94F14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FE3007E-A3C4-4A3E-A3B7-F5DF37A94F14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C549B51B-112C-4D77-BF31-9B9C34324C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C549B51B-112C-4D77-BF31-9B9C34324C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C549B51B-112C-4D77-BF31-9B9C34324C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C549B51B-112C-4D77-BF31-9B9C34324C34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
