@@ -1,0 +1,27 @@
+﻿@page "/logout"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity
+@using SpostatoDAL.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<RadzenCard>
+    <h2 class="mb-4">Uitloggen</h2>
+
+    @if (!isLoggedOut)
+    {
+        <RadzenText TextStyle="TextStyle.Body1" class="mb-4">
+            Weet je zeker dat je wilt uitloggen?
+        </RadzenText>
+        <RadzenButton Text="Uitloggen" ButtonStyle="ButtonStyle.Danger" Click="@HandleLogout" />
+    }
+    else
+    {
+        <RadzenText TextStyle="TextStyle.Body1" class="mb-4">
+            Je bent succesvol uitgelogd.
+        </RadzenText>
+        <RadzenButton Text="Terug naar startpagina" ButtonStyle="ButtonStyle.Primary" Click="@(() => NavigationManager.NavigateTo("/"))" />
+    }
+</RadzenCard>
+

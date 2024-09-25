@@ -1,0 +1,48 @@
+﻿@page "/register"
+@using Microsoft.AspNetCore.Identity
+@using SpostatoDAL.Models
+@using SpostatoBL.Service
+@using System.ComponentModel.DataAnnotations
+@inject UserManager<ApplicationUser> UserManager
+@inject IEmailService EmailService
+@inject NavigationManager NavigationManager
+
+<RadzenCard>
+    <h2 class="mb-4">Registreren</h2>
+
+    <RadzenTemplateForm TItem="InputModel" Data="@input" Submit="@HandleRegistration">
+        <RadzenFormField Text="Naam" Variant="Variant.Filled">
+            <RadzenTextBox Name="Name" @bind-Value="@input.Name" />
+            <RadzenRequiredValidator Component="Name" Text="Naam is verplicht" Popup="true" />
+        </RadzenFormField>
+
+        <RadzenFormField Text="E-mailadres" Variant="Variant.Filled">
+            <RadzenTextBox Name="Email" @bind-Value="@input.Email" />
+            <RadzenRequiredValidator Component="Email" Text="E-mailadres is verplicht" Popup="true" />
+            <RadzenEmailValidator Component="Email" Text="Ongeldig e-mailadres" Popup="true" />
+        </RadzenFormField>
+
+        <RadzenFormField Text="Wachtwoord" Variant="Variant.Filled">
+            <RadzenPassword Name="Password" @bind-Value="@input.Password" />
+            <RadzenRequiredValidator Component="Password" Text="Wachtwoord is verplicht" Popup="true" />
+            <RadzenLengthValidator Component="Password" Min="6" Text="Wachtwoord moet minimaal 6 tekens lang zijn" Popup="true" />
+        </RadzenFormField>
+
+        <RadzenFormField Text="Bevestig wachtwoord" Variant="Variant.Filled">
+            <RadzenPassword Name="ConfirmPassword" @bind-Value="@input.ConfirmPassword" />
+            <RadzenRequiredValidator Component="ConfirmPassword" Text="Bevestig wachtwoord is verplicht" Popup="true" />
+            <RadzenCompareValidator Component="ConfirmPassword" Value="@input.Password" Text="Wachtwoorden komen niet overeen" Popup="true" />
+        </RadzenFormField>
+
+        <RadzenButton ButtonType="ButtonType.Submit" Text="Registreren" ButtonStyle="ButtonStyle.Primary" Class="mt-4" />
+    </RadzenTemplateForm>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <RadzenAlert AlertStyle="AlertStyle.Danger" ShowIcon="true" AllowClose="false" Class="mt-4">
+            @errorMessage
+        </RadzenAlert>
+    }
+</RadzenCard>
+
+

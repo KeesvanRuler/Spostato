@@ -1,0 +1,47 @@
+﻿@page "/create-gangster"
+@using Microsoft.AspNetCore.Identity
+@using SpostatoDAL
+@using SpostatoDAL.Models
+@using Microsoft.EntityFrameworkCore
+@inject UserManager<ApplicationUser> UserManager
+@inject NavigationManager NavigationManager
+@inject ApplicationDbContext DbContext
+@inject IHttpContextAccessor HttpContextAccessor
+
+<RadzenCard>
+    <h2 class="mb-4">Maak je gangster</h2>
+
+    @if (currentUser == null || currentUser.CurrentGangster != null && currentUser.CurrentGangster.IsAlive)
+    {
+        <RadzenAlert AlertStyle="AlertStyle.Info" ShowIcon="true" AllowClose="false">
+            Je hebt al een levende gangster. Ga terug naar het spel om verder te spelen.
+        </RadzenAlert>
+        <RadzenButton Text="Terug naar het spel" Click="@(() => NavigationManager.NavigateTo("/"))" ButtonStyle="ButtonStyle.Secondary" Class="mt-3" />
+    }
+    else
+    {
+        <RadzenTemplateForm TItem="GangsterModel" Data="@model" Submit="@CreateNewGangster">
+            <RadzenFormField Text="Naam van je gangster" Variant="Variant.Filled">
+                <RadzenTextBox Name="Name" @bind-Value="@model.Name" />
+                <RadzenRequiredValidator Component="Name" Text="Naam is verplicht" Popup="true" />
+                <RadzenLengthValidator Component="Name" Min="3" Max="50" Text="Naam moet tussen 3 en 50 tekens lang zijn" Popup="true" />
+            </RadzenFormField>
+
+            <RadzenFormField Text="Kies je startstad" Variant="Variant.Filled">
+                <RadzenDropDown @bind-Value="@model.CityId" Data="@cities" TextProperty="Name" ValueProperty="Id" />
+                <RadzenRequiredValidator Component="CityId" Text="Startstad is verplicht" Popup="true" />
+            </RadzenFormField>
+
+            <RadzenButton ButtonType="ButtonType.Submit" Text="Maak gangster" ButtonStyle="ButtonStyle.Primary" Class="mt-4" />
+        </RadzenTemplateForm>
+    }
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <RadzenAlert AlertStyle="AlertStyle.Danger" ShowIcon="true" AllowClose="false" Class="mt-4">
+            @errorMessage
+        </RadzenAlert>
+    }
+</RadzenCard>
+
+

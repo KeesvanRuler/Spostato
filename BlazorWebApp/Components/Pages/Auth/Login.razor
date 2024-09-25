@@ -1,0 +1,38 @@
+﻿@page "/login"
+@using Microsoft.AspNetCore.Identity
+@using SpostatoDAL.Models
+@using System.ComponentModel.DataAnnotations
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager NavigationManager
+
+<RadzenCard>
+    <h2 class="mb-4">Inloggen</h2>
+
+    <RadzenTemplateForm TItem="LoginModel" Data="@loginModel" Submit="@HandleLogin">
+        <RadzenFormField Text="E-mailadres" Variant="Variant.Filled">
+            <RadzenTextBox Name="Email" @bind-Value="@loginModel.Email" />
+            <RadzenRequiredValidator Component="Email" Text="E-mailadres is verplicht" Popup="true" />
+            <RadzenEmailValidator Component="Email" Text="Ongeldig e-mailadres" Popup="true" />
+        </RadzenFormField>
+
+        <RadzenFormField Text="Wachtwoord" Variant="Variant.Filled">
+            <RadzenPassword Name="Password" @bind-Value="@loginModel.Password" />
+            <RadzenRequiredValidator Component="Password" Text="Wachtwoord is verplicht" Popup="true" />
+        </RadzenFormField>
+
+        <RadzenButton ButtonType="ButtonType.Submit" Text="Inloggen" ButtonStyle="ButtonStyle.Primary" Class="mt-4" />
+    </RadzenTemplateForm>
+
+    <div class="mt-4">
+        <RadzenLink Path="/wachtwoord-vergeten" Text="Wachtwoord vergeten?" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <RadzenAlert AlertStyle="AlertStyle.Danger" ShowIcon="true" AllowClose="false" Class="mt-4">
+            @errorMessage
+        </RadzenAlert>
+    }
+</RadzenCard>
+
