@@ -1,0 +1,34 @@
+﻿@inject IModalService Modal
+@inject NavigationManager NavigationManager
+
+<div>
+    <p>@ResultMessage</p>
+
+    @if (ProgressionGained != 0)
+    {
+        <p>Rank progressie: @(ProgressionGained > 0 ? "+" : "")@ProgressionGained.ToString("F2")%</p>
+    }
+
+    @if (MoneyGained > 0)
+    {
+        <p>Geld verdiend: €@MoneyGained</p>
+    }
+
+    @if (ShootingSkillGained > 0)
+    {
+        <p>Schiet ervaring: +@ShootingSkillGained.ToString("F2")</p>
+    }
+
+    @if (DrivingSkillGained > 0)
+    {
+        <p>Rij ervaring: +@DrivingSkillGained.ToString("F2")</p>
+    }
+
+    @if (BreakoutSkillGained > 0)
+    {
+        <p>Uitbreek ervaring: +@BreakoutSkillGained.ToString("F2")</p>
+    }
+
+    <RadzenButton Text="Sluiten" Click="Close" ButtonStyle="ButtonStyle.Secondary" />
+</div>
+

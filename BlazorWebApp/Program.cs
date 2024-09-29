@@ -1,4 +1,6 @@
 using BlazorWebApp.Components;
+using BlazorWebApp.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SpostatoBL.Service;
@@ -19,7 +21,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddScoped<IGangsterService, GangsterService>();
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<NavigationManager>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();

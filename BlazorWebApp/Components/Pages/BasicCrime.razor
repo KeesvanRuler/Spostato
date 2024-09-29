@@ -1,0 +1,20 @@
+﻿@page "/basic-crime"
+@using BlazorWebApp.Components.Pages.Comps
+@using BlazorWebApp.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@using SpostatoBL.Helper
+@using SpostatoBL.Enum
+@using SpostatoDAL.Models
+@using System.Security.Claims
+@inject IModalService Modal
+@inject IGangsterService GangsterService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h2>Basis Misdaden</h2>
+
+<div class="crime-buttons">
+    <RadzenButton Text="Oefen met schieten op de schietbaan" Click="@(() => CommitCrime(CrimeType.ShootingRange))" ButtonStyle="ButtonStyle.Primary" Class="m-2" />
+    <RadzenButton Text="Beroof een bejaarde" Click="@(() => CommitCrime(CrimeType.RobGrandma))" ButtonStyle="ButtonStyle.Primary" Class="m-2" />
+    <RadzenButton Text="Overval een juwelier" Click="@(() => CommitCrime(CrimeType.RobJuwelryStore))" ButtonStyle="ButtonStyle.Primary" Class="m-2" />
+</div>
+
