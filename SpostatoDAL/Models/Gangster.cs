@@ -43,6 +43,7 @@ namespace SpostatoDAL.Models
         [ForeignKey("PrisonId")]
         public Prison? Prison { get; set; }
         public DateTime InPrisonUntill { get; set; } = DateTime.Now;
+        public int BreakoutAttemptsLeft { get; set; } = 5;
         public int? BuyOutAmount { get; set; }
         [Display(Name = "Account aangemaakt op")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;

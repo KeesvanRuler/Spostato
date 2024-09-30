@@ -8,13 +8,34 @@
 @using System.Security.Claims
 @inject IModalService Modal
 @inject IGangsterService GangsterService
+@inject IBasicCrimeService BasicCrimeService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 <h2>Basis Misdaden</h2>
 
-<div class="crime-buttons">
-    <RadzenButton Text="Oefen met schieten op de schietbaan" Click="@(() => CommitCrime(CrimeType.ShootingRange))" ButtonStyle="ButtonStyle.Primary" Class="m-2" />
-    <RadzenButton Text="Beroof een bejaarde" Click="@(() => CommitCrime(CrimeType.RobGrandma))" ButtonStyle="ButtonStyle.Primary" Class="m-2" />
-    <RadzenButton Text="Overval een juwelier" Click="@(() => CommitCrime(CrimeType.RobJuwelryStore))" ButtonStyle="ButtonStyle.Primary" Class="m-2" />
-</div>
+@if (currentGangster == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="crime-buttons">
+        <RadzenButton Text="Oefen met schieten op de schietbaan"
+                      Click="@(() => CommitCrime(BasicCrimeType.ShootingRange))"
+                      ButtonStyle="ButtonStyle.Primary"
+                      Class="m-2"
+                      Disabled="@(currentGangster.InPrisonUntill > DateTime.Now)" />
+        <RadzenButton Text="Beroof een bejaarde"
+                      Click="@(() => CommitCrime(BasicCrimeType.RobGrandma))"
+                      ButtonStyle="ButtonStyle.Primary"
+                      Class="m-2"
+                      Disabled="@(currentGangster.InPrisonUntill > DateTime.Now)" />
+        <RadzenButton Text="Overval een juwelier"
+                      Click="@(() => CommitCrime(BasicCrimeType.RobJuwelryStore))"
+                      ButtonStyle="ButtonStyle.Primary"
+                      Class="m-2"
+                      Disabled="@(currentGangster.InPrisonUntill > DateTime.Now)" />
+    </div>
 
+    <PrisonOverlay Gangster="currentGangster"></PrisonOverlay>
+}

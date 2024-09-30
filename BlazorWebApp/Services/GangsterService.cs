@@ -10,6 +10,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlazorWebApp.Services
 {
+    public interface IGangsterService
+    {
+        Task<Gangster> GetCurrentAliveGangsterAsync();
+        Task UpdateGangsterAsync(Gangster gangster);
+    }
+
     public class GangsterService : IGangsterService
     {
         private readonly ApplicationDbContext _context;

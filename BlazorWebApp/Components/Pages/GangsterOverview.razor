@@ -64,22 +64,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    @if (gangster.Prison != null)
-    {
-        <div class="mt-3">
-            <h2>Gevangenis Informatie</h2>
-            <p>Je zit momenteel in de gevangenis!</p>
-            <p>Vrij op: @gangster.InPrisonUntill.ToString("dd/MM/yyyy HH:mm:ss")</p>
-            <p>Uitkoopbedrag: €@gangster.BuyOutAmount</p>
-            <RadzenButton Text="Koop Vrij" Click="@BuyOutOfPrison" ButtonStyle="ButtonStyle.Primary" Disabled="@(gangster.AmountOfMoneyInPocket < gangster.BuyOutAmount)" />
-        </div>
-    }
-    
-    <div class="mt-3">
-        <RadzenButton Text="Terug naar Misdaden" Click="@(() => NavigationManager.NavigateTo("/crime"))" ButtonStyle="ButtonStyle.Secondary" />
-    </div>
+    </div> 
 </RadzenCard>
 
 

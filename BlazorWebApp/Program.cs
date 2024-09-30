@@ -22,6 +22,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IGangsterService, GangsterService>();
+builder.Services.AddScoped<IBasicCrimeService, BasicCrimeService>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<NavigationManager>();
