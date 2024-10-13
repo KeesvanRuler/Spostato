@@ -1,34 +1,37 @@
 ﻿@inject IModalService Modal
-@inject NavigationManager NavigationManager
 
 <div>
-    <p>@ResultMessage</p>
-
-    @if (ProgressionGained != 0)
+    @if (Result.CarImagePath != null)
     {
-        <p>Rank progressie: @(ProgressionGained > 0 ? "+" : "")@ProgressionGained.ToString("F2")%</p>
+        <img src="@Result.CarImagePath" alt="Auto" class="img-fluid" />
     }
 
-    @if (MoneyGained > 0)
+    <p>@Result.ResultMessage</p>
+
+    @if (Result.ProgressionGained != 0)
     {
-        <p>Geld verdiend: €@MoneyGained</p>
+        <p>Rank progressie: @(Result.ProgressionGained > 0 ? "+" : "")@Result.ProgressionGained.ToString("F2")%</p>
     }
 
-    @if (ShootingSkillGained > 0)
+    @if (Result.MoneyGained > 0)
     {
-        <p>Schiet ervaring: +@ShootingSkillGained.ToString("F2")</p>
+        <p>Geld verdiend: €@Result.MoneyGained</p>
     }
 
-    @if (DrivingSkillGained > 0)
+    @if (Result.ShootingSkillGained > 0)
     {
-        <p>Rij ervaring: +@DrivingSkillGained.ToString("F2")</p>
+        <p>Schiet ervaring: +@Result.ShootingSkillGained.ToString("F2")</p>
     }
 
-    @if (BreakoutSkillGained > 0)
+    @if (Result.DrivingSkillGained > 0)
     {
-        <p>Uitbreek ervaring: +@BreakoutSkillGained.ToString("F2")</p>
+        <p>Rij ervaring: +@Result.DrivingSkillGained.ToString("F2")</p>
+    }
+
+    @if (Result.BreakoutSkillGained > 0)
+    {
+        <p>Uitbreek ervaring: +@Result.BreakoutSkillGained.ToString("F2")</p>
     }
 
     <RadzenButton Text="Sluiten" Click="Close" ButtonStyle="ButtonStyle.Secondary" />
 </div>
-

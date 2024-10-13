@@ -13,6 +13,11 @@ namespace BlazorWebApp.Components.Pages
     {
         private Gangster currentGangster;
 
+        [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        [Inject] private IGangsterService GangsterService { get; set; }
+        [Inject] private IBasicCrimeService BasicCrimeService { get; set; }
+        [Inject] private IModalService Modal { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
@@ -27,31 +32,27 @@ namespace BlazorWebApp.Components.Pages
         {
             if (currentGangster.InPrisonUntill > DateTime.Now)
                 return;
-            var (resultMessage, progressionGained, moneyGained, shootingSkillGain, drivingSkillGain, breakoutSkillGain) =
-                await BasicCrimeService.CommitCrime(currentGangster, crimeType);
+
+            var crimeResult = await BasicCrimeService.CommitCrime(currentGangster, crimeType);
 
             var parameters = new ModalParameters();
-            parameters.Add(nameof(CrimeResultModal.ResultMessage), resultMessage);
-            parameters.Add(nameof(CrimeResultModal.ProgressionGained), progressionGained);
-            parameters.Add(nameof(CrimeResultModal.MoneyGained), moneyGained);
-            parameters.Add(nameof(CrimeResultModal.ShootingSkillGained), shootingSkillGain);
-            parameters.Add(nameof(CrimeResultModal.DrivingSkillGained), drivingSkillGain);
-            parameters.Add(nameof(CrimeResultModal.BreakoutSkillGained), breakoutSkillGain);
+            parameters.Add(nameof(CrimeResultModal.Result), crimeResult);
 
-            var modalTitle = crimeType switch
-            {
-                BasicCrimeType.ShootingRange => "Schietbaan",
-                BasicCrimeType.RobGrandma => "Beroving",
-                BasicCrimeType.RobJuwelryStore => "Overval",
-                _ => throw new ArgumentOutOfRangeException(nameof(crimeType))
-            };
-
+            var modalTitle = GetModalTitle(crimeType);
             var modal = Modal.Show<CrimeResultModal>(modalTitle, parameters);
             await modal.Result;
 
-            // Refresh the current gangster data after the crime
             currentGangster = await GangsterService.GetCurrentAliveGangsterAsync();
             StateHasChanged();
         }
+
+        private string GetModalTitle(BasicCrimeType crimeType) =>
+            crimeType switch
+            {
+                BasicCrimeType.ShootingRange => "Schietbaan",
+                BasicCrimeType.RobGrandma => "Beroving",
+                BasicCrimeType.RobJuwelryStore => "Juwelier Overval",
+                _ => throw new ArgumentOutOfRangeException(nameof(crimeType))
+            };
     }
 }
